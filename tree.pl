@@ -79,9 +79,14 @@ grandmother(Grandmother, Grandchild) :- (father(Z, Grandchild) ; mother(Z, Grand
 
 % Full-brother
 fullBrother(Person_1, Person_2) :- man(Person_1), parents(Father, Mother, Person_1), parents(Father, Mother, Person_2).
-
 % Half-brother
 halfBrother(Person_1, Person_2) :- man(Person_1), (parents(F1, M1, Person_1), parents(F2, M1, Person_2), F1 \= F2) ; (parents(F1, M1, Person_1), parents(F1, M2, Person_2), M1 \= M2).
-
 % Brother
 brother(Person_1, Person_2) :- fullBrother(Person_1, Person_2) ; halfBrother(Person_1, Person_2).
+
+% Full-sister
+fullSister(Person_1, Person_2) :- woman(Person_1), parents(Father, Mother, Person_1), parents(Father, Mother, Person_2).
+% Half-sister
+halfSister(Person_1, Person_2) :- woman(Person_1), (parents(F1, M1, Person_1), parents(F2, M1, Person_2), F1 \= F2) ; (parents(F1, M1, Person_1), parents(F1, M2, Person_2), M1 \= M2).
+% Sister
+brother(Person_1, Person_2) :- fullSister(Person_1, Person_2) ; halfSister(Person_1, Person_2).
