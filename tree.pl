@@ -69,16 +69,19 @@ mother(nil, gabriel_slaviero_ibarra).
 % == Rules ==
 
 % Parents
-parents(Father, Mother, Z) :- father(Father, Z), mother(Mother, Z).
+parents(Father, Mother, Child) :- father(Father, Child), mother(Mother, Child).
 
 % Grandfather
-grandfather(X, Y) :- (father(Z, Y) ; mother(Z, Y)), father(X, Z).
+grandfather(Grandfather, Grandchild) :- (father(Z, Grandchild) ; mother(Z, Grandchild)), father(Grandfather, Z).
 
 % Grandmother
-grandmother(X, Y) :- (father(Z, Y) ; mother(Z, Y)), mother(X, Z).
+grandmother(Grandmother, Grandchild) :- (father(Z, Grandchild) ; mother(Z, Grandchild)), mother(Grandmother, Z).
+
+% Full-brother
+fullBrother(Person_1, Person_2) :- man(Person_1), parents(Father, Mother, Person_1), parents(Father, Mother, Person_2).
+
+% Half-brother
+halfBrother(Person_1, Person_2) :- man(Person_1), (parents(F1, M1, Person_1), parents(F2, M1, Person_2), F1 \= F2) ; (parents(F1, M1, Person_1), parents(F1, M2, Person_2), M1 \= M2).
 
 % Brother
-% brother(X, Y) :- man(X), X \= Y, ((parents(A, B, X), parents(A, B, Y)) ;  (((parents(A, B, X), parents(A, C, X), B \= C) ; (parents(A, C, X), parents(B, C, X), A \= B)), not((parents(A, B, X), parents(A, C, X), B \= C), (parents(A, C, X), parents(B, C, X), A \= B)))).
-
-% Sister 
-% sister(X, Y) :- woman(X), X \= Y, ((parents(A, B, X), parents(A, B, Y)) ;  (((parents(A, B, X), parents(A, C, X), B \= C) ; (parents(A, C, X), parents(B, C, X), A \= B)), not((parents(A, B, X), parents(A, C, X), B \= C), (parents(A, C, X), parents(B, C, X), A \= B)))).   
+brother(Person_1, Person_2) :- fullBrother(Person_1, Person_2) ; halfBrother(Person_1, Person_2).
