@@ -78,15 +78,15 @@ grandfather(Grandfather, Grandchild) :- (father(Z, Grandchild) ; mother(Z, Grand
 grandmother(Grandmother, Grandchild) :- (father(Z, Grandchild) ; mother(Z, Grandchild)), mother(Grandmother, Z).
 
 % Full-brother
-fullBrother(Person_1, Person_2) :- man(Person_1), parents(Father, Mother, Person_1), parents(Father, Mother, Person_2).
+fullBrother(Brother, X) :- man(Brother), parents(Father, Mother, Brother), parents(Father, Mother, X).
 % Half-brother
-halfBrother(Person_1, Person_2) :- man(Person_1), ((parents(F1, M1, Person_1), parents(F2, M1, Person_2), F1 \= F2) ; (parents(F1, M1, Person_1), parents(F1, M2, Person_2), M1 \= M2)).
+halfBrother(Brother, X) :- man(Brother), ((parents(F1, M1, Brother), parents(F2, M1, X), F1 \= F2) ; (parents(F1, M1, Brother), parents(F1, M2, X), M1 \= M2)).
 % Brother
-brother(Person_1, Person_2) :- fullBrother(Person_1, Person_2) ; halfBrother(Person_1, Person_2).
+brother(Brother, X) :- fullBrother(Brother, X) ; halfBrother(Brother, X).
 
 % Full-sister
-fullSister(Person_1, Person_2) :- woman(Person_1), parents(Father, Mother, Person_1), parents(Father, Mother, Person_2).
+fullSister(Sister, X) :- woman(Sister), parents(Father, Mother, Sister), parents(Father, Mother, X).
 % Half-sister
-halfSister(Person_1, Person_2) :- woman(Person_1), ((parents(F1, M1, Person_1), parents(F2, M1, Person_2), F1 \= F2) ; (parents(F1, M1, Person_1), parents(F1, M2, Person_2), M1 \= M2)).
+halfSister(Sister, X) :- woman(Sister), ((parents(F1, M1, Sister), parents(F2, M1, X), F1 \= F2) ; (parents(F1, M1, Sister), parents(F1, M2, X), M1 \= M2)).
 % Sister
-sister(Person_1, Person_2) :- fullSister(Person_1, Person_2) ; halfSister(Person_1, Person_2).
+sister(Sister, X) :- fullSister(Sister, X) ; halfSister(Sister, X).
