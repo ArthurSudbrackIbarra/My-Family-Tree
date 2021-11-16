@@ -89,4 +89,4 @@ fullSister(Person_1, Person_2) :- woman(Person_1), parents(Father, Mother, Perso
 % Half-sister
 halfSister(Person_1, Person_2) :- woman(Person_1), (parents(F1, M1, Person_1), parents(F2, M1, Person_2), F1 \= F2) ; (parents(F1, M1, Person_1), parents(F1, M2, Person_2), M1 \= M2).
 % Sister
-brother(Person_1, Person_2) :- fullSister(Person_1, Person_2) ; halfSister(Person_1, Person_2).
+sister(Person_1, Person_2) :- fullSister(Person_1, Person_2) ; halfSister(Person_1, Person_2).
